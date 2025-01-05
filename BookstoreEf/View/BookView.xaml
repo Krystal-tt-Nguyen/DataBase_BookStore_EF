@@ -1,0 +1,135 @@
+﻿<UserControl x:Class="BookstoreEf.View.BookView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BookstoreEf.View"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="MintCream"
+             DataContext="{Binding BookViewModel}">
+
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+    </UserControl.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Label Content="Book Catalog Overview" 
+               FontSize="16" 
+               FontWeight="Bold"
+               Grid.Row="0"  
+               HorizontalAlignment="Left" 
+               VerticalAlignment="Bottom"
+               Margin="10 0 0 0">
+        </Label>
+
+
+        <Button Background="Transparent" 
+                BorderBrush="Transparent"
+                Command ="{Binding AddBookCommand}"
+                Grid.Row="0"  
+                Height="30" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0 0 90 0"
+                ToolTip="Add new book to catalog"
+                Width="30">
+
+            <Button.Content>
+                <fa:IconBlock Icon="Plus"/>
+            </Button.Content>
+        </Button>
+
+
+        <Button Background="Transparent" 
+                BorderBrush="Transparent"
+                Command ="{Binding RemoveBookCommand}"
+                Grid.Row="0"  
+                Height="30" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10 0 50 0"
+                ToolTip="Remove book from catalog"
+                Width="30">
+
+            <Button.Content>
+                <fa:IconBlock Icon="Minus"/>
+            </Button.Content>
+        </Button>
+
+        <Button Background="Transparent" 
+                BorderBrush="Transparent"
+                Command ="{Binding EditBookCommand}"
+                Grid.Row="0"  
+                Height="30" 
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="10 0 10 0"
+                ToolTip="Edit selected book details"
+                Width="30">
+
+            <Button.Content>
+                <fa:IconBlock Icon="Gears"/>
+            </Button.Content>
+        </Button>
+
+        <DataGrid x:Name="DG_BookDetails" 
+                  Grid.Row="1"
+                  Margin="10 0 10 0"
+                  SelectionMode="Single"
+                  AutoGenerateColumns="False"
+                  CanUserAddRows="False"
+                  CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  CanUserResizeColumns="False"
+                  IsReadOnly ="True"
+                  AlternationCount="2"
+                  AlternatingRowBackground="LightGray"
+                  RowBackground="White"
+                  RowHeaderWidth="20"
+                  SelectedItem="{Binding SelectedBook}"
+                  ItemsSource="{Binding Books, UpdateSourceTrigger=PropertyChanged}">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ISBN"
+                                    Width="3*"
+                                    Binding="{Binding Isbn}"/>
+                <DataGridTextColumn Header="Book Title"
+                                    Width="4*"
+                                    Binding="{Binding BookTitle}"/>
+                <DataGridTextColumn Header="Author"
+                                    Width="3*"
+                                    Binding="{Binding Author.Name}"/>
+                <DataGridTextColumn Header="Genre"
+                                    Width="3*"
+                                    Binding="{Binding Genre.GenreName}"/>
+                <DataGridTextColumn Header="Language"
+                                    Width="3*"
+                                    Binding="{Binding Language}"/>
+                <DataGridTextColumn Header="Publisher"
+                                    Width="3*"
+                                    Binding="{Binding Publisher.Name}"/>
+                <DataGridTextColumn Header="Pages"
+                                    Width="2*"
+                                    Binding="{Binding Pages}"/>
+                <DataGridTextColumn Header="Weight (g)"
+                                    Width="2*"
+                                    Binding="{Binding WeightInGrams}"/>
+                <DataGridTextColumn Header="Price (kr)"
+                                    Width="2*"
+                                    Binding="{Binding Price}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+
+    </Grid>
+
+</UserControl>
+

@@ -1,0 +1,48 @@
+﻿<Window x:Class="BookstoreEf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BookstoreEf" 
+        xmlns:view="clr-namespace:BookstoreEf.View"
+        mc:Ignorable="d"
+        Height="500" Width="800" 
+        MinHeight="450" MinWidth="700" 
+        Title="Once Upon a Bookstore">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="VisibilityConverter"/>
+    </Window.Resources>
+
+    <Window.InputBindings>
+        <KeyBinding Key="Return"
+                    Modifiers="Alt"
+                    Command="{Binding ToggleFullscreenCommand}"/>
+        <KeyBinding Key="F4"
+                    Modifiers="Alt"
+                    Command="{Binding ExitProgramCommand}"/>
+        <KeyBinding Key="A"
+                    Modifiers="Ctrl"
+                    Command="{Binding AuthorViewModel.SwitchToAuthorViewCommand}"/>
+        <KeyBinding Key="B"
+                    Modifiers="Ctrl"
+                    Command="{Binding BookViewModel.SwitchToBookViewCommand}"/>
+        <KeyBinding Key="I"
+                    Modifiers="Ctrl"
+                    Command="{Binding StoreInventoryViewModel.SwitchToStoreInventoryViewCommand}"/>
+    </Window.InputBindings>
+
+
+    <Grid Background="MintCream">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <view:MenuView Grid.Row="0"/>
+        <view:StoreInventoryView Grid.Row="1" Visibility="{Binding StoreInventoryViewModel.IsStoreInventoryViewVisible, Converter={StaticResource VisibilityConverter}}"/>
+        <view:BookView Grid.Row="1" Visibility="{Binding IsBookViewVisible, Converter={StaticResource VisibilityConverter}}"/>
+        <view:AuthorView Grid.Row="1" Visibility="{Binding IsAuthorViewVisible, Converter={StaticResource VisibilityConverter}}"/>
+    </Grid>
+
+</Window>
